@@ -1,0 +1,24 @@
+img{
+    width: 300px;
+    height: 300px;
+  }
+  img{
+    margin-left: 20px;
+    align-content: center;
+    margin-top: 100px;
+  }
+  div{
+   padding-left: 150px;
+  }
+  
+  body{
+    background-color: whitesmoke;
+  }
+
+  p{
+    font-size: 150%;
+    font-weight: bold;
+    margin: 50px 50px 50px 0px;
+    text-align: center;
+    color: rgb(61, 15, 10);
+  }
