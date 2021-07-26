@@ -17,6 +17,10 @@ let leftImageIndex;
 let rightImageIndex;
 let centerImageIndex;
 
+let namesArr=[];
+let votesArr=[];
+let showArr=[];
+
 
 // array for all the products
 let products = [];
@@ -28,8 +32,11 @@ function Product(name, src) {
     this.vote = 0;
     this.shown = 0;
     products.push(this);
+    namesArr.push(this.name);
 
 }
+
+console.log(namesArr);
 
 
 // instances 
@@ -66,6 +73,9 @@ function getRandomIndex() {
 //   console.log(getRandomIndex());z
 
 // render
+
+let image=[];
+
 function renderThreeImages() {
     leftImageIndex = getRandomIndex();
     rightImageIndex = getRandomIndex();
@@ -81,7 +91,24 @@ function renderThreeImages() {
         leftImageIndex = getRandomIndex();
         rightImageIndex = getRandomIndex();
         centerImageIndex = getRandomIndex();
+
     }
+
+// I used include method to make sure that at the next click the page will view 3 new different images. NOT like render, render to refresh the page. 
+    while (image === showArr.includes(image[0]) || image === showArr.includes(image[1]) || image === showArr.includes(image[2])) {
+        leftImageIndex = getRandomIndex();
+        rightImageIndex = getRandomIndex();
+        centerImageIndex = getRandomIndex();
+
+    
+    }
+
+    image=[leftImageIndex, rightImageIndex, centerImageIndex];
+
+
+    
+
+
 
     // console.log(products[rightImageIndex].source);
 
@@ -167,6 +194,8 @@ function UserClick(event) {
     function showList() {
       let list = document.getElementById('results-list');
 
+
+
       for (let i = 0; i < products.length; i++) {
         // const element = goats[i];
         let listItem = document.createElement('li');
@@ -176,15 +205,106 @@ function UserClick(event) {
 
         listItem.textContent = `${products[i].name} has ${products[i].vote} votes, and was seen ${products[i].shown} times`;
 
+
+
       }
 
       buttonElement.removeEventListener('click', showList);
+       }
+       showChart();
+
     }
-    }
+
+    
+
+
 }
 
 
 
+function showChart() {
+
+
+    for (let i = 0; i < products.length; i++) {
+    
+        votesArr.push(products[i].vote);
+        showArr.push(products[i].shown);
+        
+        console.log(votesArr);
+    
+    }
+
+    
+  const data = {
+    labels: namesArr,
+    datasets: [{
+      label: 'Votes',
+      data: votesArr,
+
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    },
+    {
+        label: 'Shown',
+        data: showArr,
+  
+        backgroundColor: [
+          'rgba(0,255,0,0.3)',
+          'rgba(0,255,0,0.3)',
+          'rgba(0,255,0,0.3)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(0,0,255,0.3)',
+          'rgb(0,0,255,0.3)',
+          'rgb(0,0,255,0.3)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }
+]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+  };
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+  }
 
 
 
