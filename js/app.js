@@ -4,11 +4,11 @@ let leftImageElement = document.getElementById('left-image');
 let rightImageElement = document.getElementById('right-image');
 let centerImageElement = document.getElementById('center-image');
 
-let buttonElement=document.getElementById('button');
+let buttonElement = document.getElementById('button');
 
 
 
-console.log(leftImageElement, rightImageElement, centerImageElement);
+// console.log(leftImageElement, rightImageElement, centerImageElement);
 
 let MaxAttempts = 25;
 let AttemptsCounter = 0;
@@ -17,9 +17,9 @@ let leftImageIndex;
 let rightImageIndex;
 let centerImageIndex;
 
-let namesArr=[];
-let votesArr=[];
-let showArr=[];
+let namesArr = [];
+let votesArr = [];
+let showArr = [];
 
 
 // array for all the products
@@ -27,16 +27,17 @@ let products = [];
 
 // pascal case
 function Product(name, src) {
-    this.name = name;
-    this.source = src;
-    this.vote = 0;
-    this.shown = 0;
-    products.push(this);
-    namesArr.push(this.name);
+  this.name = name;
+  this.source = src;
+  this.vote = 0;
+  this.shown = 0;
+  products.push(this);
+  namesArr.push(this.name);
+
 
 }
 
-console.log(namesArr);
+// console.log(namesArr);
 
 
 // instances 
@@ -66,72 +67,72 @@ new Product('wine-glass', 'images/wine-glass.jpg'); //18
 // to generate a random index in the products array that refers to a method (image)
 // from w3 schools
 function getRandomIndex() {
-    // 0=>18
-    return Math.floor(Math.random() * (products.length));
+  // 0=>18
+  return Math.floor(Math.random() * (products.length));
 }
 
 //   console.log(getRandomIndex());z
 
 // render
 
-let image=[];
+let image = [];
 
 function renderThreeImages() {
+  leftImageIndex = getRandomIndex();
+  rightImageIndex = getRandomIndex();
+  centerImageIndex = getRandomIndex();
+
+
+
+  // console.log(leftImageElement);
+
+  // leftImageElement.setAttribute('src',products[leftImageIndex].source);
+
+  while (leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex || rightImageIndex === centerImageIndex) {
+    leftImageIndex = getRandomIndex();
+    rightImageIndex = getRandomIndex();
+    centerImageIndex = getRandomIndex();
+
+  }
+
+  // I used include method to make sure that at the next click the page will view 3 new different images. NOT like render, render to refresh the page. 
+  while (image === showArr.includes(image[0]) || image === showArr.includes(image[1]) || image === showArr.includes(image[2])) {
     leftImageIndex = getRandomIndex();
     rightImageIndex = getRandomIndex();
     centerImageIndex = getRandomIndex();
 
 
+  }
 
-    // console.log(leftImageElement);
-
-    // leftImageElement.setAttribute('src',products[leftImageIndex].source);
-
-    while (leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex || rightImageIndex === centerImageIndex) {
-        leftImageIndex = getRandomIndex();
-        rightImageIndex = getRandomIndex();
-        centerImageIndex = getRandomIndex();
-
-    }
-
-// I used include method to make sure that at the next click the page will view 3 new different images. NOT like render, render to refresh the page. 
-    while (image === showArr.includes(image[0]) || image === showArr.includes(image[1]) || image === showArr.includes(image[2])) {
-        leftImageIndex = getRandomIndex();
-        rightImageIndex = getRandomIndex();
-        centerImageIndex = getRandomIndex();
-
-    
-    }
-
-    image=[leftImageIndex, rightImageIndex, centerImageIndex];
-
-
-    
+  image = [leftImageIndex, rightImageIndex, centerImageIndex];
 
 
 
-    // console.log(products[rightImageIndex].source);
-
-    // rightImageElement.src = products[rightImageIndex].source;
-
-    // console.log(rightImageElement ,'right element');
-
-    leftImageElement.src = products[leftImageIndex].source;
-    rightImageElement.src = products[rightImageIndex].source;
-    centerImageElement.src = products[centerImageIndex].source;
 
 
 
-    // leftImageElement.setAttribute('src',products[leftImageIndex].source);
-    // centerImageElement.setAttribute('src',products[centerImageIndex].source);
-    // rightImageElement.setAttribute('src',products[rightImageIndex].source);z
+  // console.log(products[rightImageIndex].source);
 
-    // console.log(products[rightImageIndex].source, 'value right image');
+  // rightImageElement.src = products[rightImageIndex].source;
+
+  // console.log(rightImageElement ,'right element');
+
+  leftImageElement.src = products[leftImageIndex].source;
+  rightImageElement.src = products[rightImageIndex].source;
+  centerImageElement.src = products[centerImageIndex].source;
 
 
-    products[leftImageIndex].shown++;
-    products[rightImageIndex].shown++;
-    products[centerImageIndex].shown++;
+
+  // leftImageElement.setAttribute('src',products[leftImageIndex].source);
+  // centerImageElement.setAttribute('src',products[centerImageIndex].source);
+  // rightImageElement.setAttribute('src',products[rightImageIndex].source);z
+
+  // console.log(products[rightImageIndex].source, 'value right image');
+
+
+  products[leftImageIndex].shown++;
+  products[rightImageIndex].shown++;
+  products[centerImageIndex].shown++;
 
 }
 
@@ -150,46 +151,46 @@ centerImageElement.addEventListener('click', UserClick);
 
 function UserClick(event) {
 
-    console.log(event.target.id);
+  // console.log(event.target.id);
 
-    AttemptsCounter++;
+  AttemptsCounter++;
 
-    console.log(AttemptsCounter);
-
-
-    if (AttemptsCounter < MaxAttempts) {
+  // console.log(AttemptsCounter);
 
 
-        if (event.target.id === 'left-image') {
-
-            products[leftImageIndex].vote++;
-            console.log(products[leftImageIndex]);
+  if (AttemptsCounter < MaxAttempts) {
 
 
-        }
+    if (event.target.id === 'left-image') {
+
+      products[leftImageIndex].vote++;
+      // console.log(products[leftImageIndex]);
+
+
+    }
 
 
 
-        else if (event.target.id === 'right-image') {
-            products[rightImageIndex].vote++;
-            console.log(products[rightImageIndex]);
-        }
+    else if (event.target.id === 'right-image') {
+      products[rightImageIndex].vote++;
+      // console.log(products[rightImageIndex]);
+    }
 
 
-        else if (event.target.id === 'center-image') {
-            products[centerImageIndex].vote++
-            console.log(products[centerImageIndex]);
+    else if (event.target.id === 'center-image') {
+      products[centerImageIndex].vote++
+      // console.log(products[centerImageIndex]);
 
-        }
-        else{
-            alert('please click on the images');
-        }
+    }
+    else {
+      alert('please click on the images');
+    }
 
-        renderThreeImages();
+    renderThreeImages();
 
-    }else{
+  } else {
 
-        buttonElement.addEventListener('click', showList);
+    buttonElement.addEventListener('click', showList);
 
     function showList() {
       let list = document.getElementById('results-list');
@@ -207,15 +208,19 @@ function UserClick(event) {
 
 
 
+
       }
 
+      updateStorage();
+
+
       buttonElement.removeEventListener('click', showList);
-       }
-       showChart();
-
     }
+    showChart();
+    loadData();
 
-    
+  }
+
 
 
 }
@@ -225,16 +230,16 @@ function UserClick(event) {
 function showChart() {
 
 
-    for (let i = 0; i < products.length; i++) {
-    
-        votesArr.push(products[i].vote);
-        showArr.push(products[i].shown);
-        
-        console.log(votesArr);
-    
-    }
+  for (let i = 0; i < products.length; i++) {
 
-    
+    votesArr.push(products[i].vote);
+    showArr.push(products[i].shown);
+
+    // console.log(votesArr);
+
+  }
+
+
   const data = {
     labels: namesArr,
     datasets: [{
@@ -262,30 +267,30 @@ function showChart() {
       borderWidth: 1
     },
     {
-        label: 'Shown',
-        data: showArr,
-  
-        backgroundColor: [
-          'rgba(0,255,0,0.3)',
-          'rgba(0,255,0,0.3)',
-          'rgba(0,255,0,0.3)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)'
-        ],
-        borderColor: [
-          'rgb(0,0,255,0.3)',
-          'rgb(0,0,255,0.3)',
-          'rgb(0,0,255,0.3)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)'
-        ],
-        borderWidth: 1
-      }
-]
+      label: 'Shown',
+      data: showArr,
+
+      backgroundColor: [
+        'rgba(0,255,0,0.3)',
+        'rgba(0,255,0,0.3)',
+        'rgba(0,255,0,0.3)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(0,0,255,0.3)',
+        'rgb(0,0,255,0.3)',
+        'rgb(0,0,255,0.3)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }
+    ]
   };
 
   const config = {
@@ -304,10 +309,51 @@ function showChart() {
     document.getElementById('myChart'),
     config
   );
+}
+
+
+
+// local storage part.
+
+// add items to local storage
+// console.log(localStorage);
+// localStorage.setItem('name', 'Tariq');
+// localStorage.setItem('age','25');
+
+// // get data from local storage
+// console.log(localStorage.getItem('name'));
+
+// // remove item from local storage
+// localStorage.removeItem('age');
+
+// // clear all values
+// localStorage.clear();
+
+
+// save number of votes & shown to each product to local storage
+
+function updateStorage() {
+
+  let stringArr = JSON.stringify(products);
+  console.log(products);
+
+  localStorage.setItem('items', stringArr);
+
+
+}
+
+function loadData() {
+  // localStorage.getItem('items');
+  let itemsArr=JSON.parse(localStorage.getItem('items'));
+  
+  if (itemsArr=!null) {
+
+    for (let i = 0; i < itmesArr.length; i++) {
+
+      new Product(itemsArr[i].name, itemsArr[i].source, itemsArr[i].vote, itemsArr[i].shown);
+
+    }
+  
   }
-
-
-
-
-
-
+  
+}
